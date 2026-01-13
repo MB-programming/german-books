@@ -123,8 +123,45 @@ saved_books, reading_progress, purchase_requests, purchases, sessions
 
 ## 🆘 إذا واجهت مشاكل أخرى
 
-### المشكلة: "Table doesn't exist"
-**الحل:** شغّل install.php مرة أخرى
+### المشكلة: "جداول ناقصة" أو "Table doesn't exist"
+
+**الأعراض:**
+```
+❌ خطأ
+جداول ناقصة: users, books, audio_files, saved_books, reading_progress, purchase_requests, purchases, sessions
+
+❌ خطأ
+خطأ في قاعدة البيانات: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'u186120816_books.users' doesn't exist
+```
+
+**الحل 1: استخدام install-simple.php (موصى به)**
+
+تم إنشاء معالج تثبيت بديل وأفضل:
+
+1. افتح: `https://netlabacademy.com/install-simple.php`
+2. اضغط "🚀 تثبيت تلقائي"
+3. انتظر النتيجة
+
+**الحل 2: إعادة المحاولة مع install.php**
+
+1. احذف قاعدة البيانات من phpMyAdmin (اختياري)
+2. شغّل `install.php` مرة أخرى
+3. تابع رسائل الأخطاء بدقة
+
+**الحل 3: التثبيت اليدوي (عبر phpMyAdmin)**
+
+1. سجل دخول إلى **cPanel → phpMyAdmin**
+2. اختر قاعدة البيانات `u186120816_books`
+3. اذهب لتبويب **SQL**
+4. انسخ محتويات ملف `database.sql`
+5. الصقه في صندوق SQL
+6. اضغط **Go**
+
+**الحل 4: عبر SSH/Command Line**
+
+```bash
+mysql -h localhost -u u186120816_minaboulesf3 -p'yd+I*aN6' u186120816_books < database.sql
+```
 
 ### المشكلة: "Access denied"
 **الحل:** تحقق من بيانات الاتصال في `config.php`:

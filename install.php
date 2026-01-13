@@ -81,25 +81,32 @@
                 }
 
                 $sql = file_get_contents($sqlFile);
-                $success[] = "تم قراءة ملف SQL بنجاح";
+                $sqlFileSize = strlen($sql);
+                $success[] = "تم قراءة ملف SQL بنجاح (حجم: $sqlFileSize حرف)";
 
                 // الخطوة 4: تنفيذ الاستعلامات
                 echo '<script>updateProgress(50, "إنشاء الجداول...");</script>';
                 flush();
 
-                // تقسيم الاستعلامات
-                $statements = array_filter(
-                    array_map('trim', explode(';', $sql)),
-                    function($stmt) {
-                        return !empty($stmt) && !preg_match('/^(--|\/\*)/', $stmt);
-                    }
-                );
+                // إزالة التعليقات من SQL
+                $sql = preg_replace('/--.*$/m', '', $sql); // إزالة تعليقات --
+                $sql = preg_replace('/\/\*.*?\*\//s', '', $sql); // إزالة تعليقات /* */
+                $sql = preg_replace('/^#.*$/m', '', $sql); // إزالة تعليقات #
+
+                // تقسيم الاستعلامات بناءً على الفاصلة المنقوطة
+                $statements = explode(';', $sql);
+                $statements = array_map('trim', $statements);
+                $statements = array_filter($statements, function($stmt) {
+                    return !empty($stmt);
+                });
 
                 $totalStatements = count($statements);
+                $success[] = "تم العثور على $totalStatements استعلام SQL";
                 $executedStatements = 0;
+                $failedStatements = [];
 
-                foreach ($statements as $statement) {
-                    if (!empty(trim($statement))) {
+                foreach ($statements as $index => $statement) {
+                    if (!empty($statement)) {
                         try {
                             $pdo->exec($statement);
                             $executedStatements++;
@@ -107,15 +114,26 @@
                             echo '<script>updateProgress(' . $progress . ', "تنفيذ: ' . $executedStatements . '/' . $totalStatements . '...");</script>';
                             flush();
                         } catch (PDOException $e) {
-                            // تجاهل أخطاء التكرار
-                            if (strpos($e->getMessage(), 'Duplicate') === false) {
-                                $errors[] = "خطأ في الاستعلام: " . $e->getMessage();
+                            // تسجيل الأخطاء (ماعدا التكرار)
+                            if (strpos($e->getMessage(), 'Duplicate') === false &&
+                                strpos($e->getMessage(), 'already exists') === false) {
+                                $failedStatements[] = [
+                                    'index' => $index + 1,
+                                    'error' => $e->getMessage(),
+                                    'statement' => substr($statement, 0, 100) . '...'
+                                ];
                             }
                         }
                     }
                 }
 
-                $success[] = "تم تنفيذ $executedStatements استعلام بنجاح";
+                if (!empty($failedStatements)) {
+                    foreach ($failedStatements as $failed) {
+                        $errors[] = "خطأ في الاستعلام #{$failed['index']}: {$failed['error']}";
+                    }
+                } else {
+                    $success[] = "تم تنفيذ $executedStatements استعلام بنجاح";
+                }
 
                 // الخطوة 5: التحقق من الجداول
                 echo '<script>updateProgress(95, "التحقق من الجداول...");</script>';
