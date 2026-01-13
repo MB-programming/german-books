@@ -1,6 +1,10 @@
--- إنشاء قاعدة البيانات
-CREATE DATABASE IF NOT EXISTS book_platform CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE book_platform;
+-- ===================================================================
+-- منصة الكتب الرقمية - NetLab Academy
+-- Database Schema
+-- ===================================================================
+-- ملاحظة: لا تقلق بشأن CREATE DATABASE و USE
+-- سيقوم install.php بالتعامل مع ذلك تلقائياً
+-- ===================================================================
 
 -- جدول المستخدمين
 CREATE TABLE IF NOT EXISTS users (
