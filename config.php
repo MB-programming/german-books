@@ -1,14 +1,19 @@
 <?php
 // إعدادات قاعدة البيانات
+// للاستضافة الحقيقية
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'book_platform');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_NAME', 'u186120816_books');
+define('DB_USER', 'u186120816_minaboulesf3');
+define('DB_PASS', 'yd+I*aN6');
 define('DB_CHARSET', 'utf8mb4');
 
 // إعدادات الموقع
-define('SITE_URL', 'http://localhost/german-books');
-define('SITE_NAME', 'منصة الكتب الرقمية');
+define('SITE_URL', 'https://netlabacademy.com');
+define('SITE_NAME', 'منصة الكتب الرقمية - NetLab Academy');
+define('SITE_DESCRIPTION', 'منصة تعليمية متخصصة في الكتب الرقمية مع دعم الملفات الصوتية التفاعلية والـ QR Codes لتعلم اللغات والمهارات');
+define('SITE_KEYWORDS', 'كتب رقمية, تعلم اللغات, كتب ألمانية, كتب إنجليزية, كتب إيطالية, ملفات صوتية, QR Code, تعليم إلكتروني');
+define('SITE_AUTHOR', 'NetLab Academy');
+define('SITE_LOGO', SITE_URL . '/assets/logo.png');
 
 // مسارات الملفات
 define('UPLOAD_DIR', __DIR__ . '/uploads/');
