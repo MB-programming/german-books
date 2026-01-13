@@ -1,0 +1,28 @@
+# تفعيل محرك إعادة الكتابة
+RewriteEngine On
+
+# منع الوصول المباشر للملفات المرفوعة
+<FilesMatch "\.(pdf|mp3|wav|ogg|m4a)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# السماح بالوصول من السكريبتات الخاصة بنا
+SetEnvIf Request_URI "^/(reader|admin)/.*" allow_access=true
+Order Deny,Allow
+Deny from all
+Allow from env=allow_access
+
+# تحسين الأمان
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# منع عرض محتوى المجلدات
+Options -Indexes
+
+# إعادة توجيه HTTP إلى HTTPS (اختياري - قم بتفعيله في الإنتاج)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
