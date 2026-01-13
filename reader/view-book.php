@@ -20,6 +20,18 @@ if (!$book) {
     redirect('dashboard.php');
 }
 
+// التحقق من أن الكتاب مدفوع والمستخدم لم يشتريه
+if ($book['is_paid'] == 1) {
+    $purchaseCheck = $pdo->prepare("SELECT id FROM purchases WHERE user_id = ? AND book_id = ?");
+    $purchaseCheck->execute([$user['id'], $bookId]);
+    $hasPurchased = $purchaseCheck->fetch();
+
+    if (!$hasPurchased) {
+        // إعادة توجيه لصفحة الشراء
+        redirect('purchase-book.php?id=' . $bookId);
+    }
+}
+
 // الحصول على الملفات الصوتية
 $audioStmt = $pdo->prepare("SELECT * FROM audio_files WHERE book_id = ? ORDER BY page_number");
 $audioStmt->execute([$bookId]);

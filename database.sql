@@ -30,10 +30,13 @@ CREATE TABLE IF NOT EXISTS books (
     total_pages INT DEFAULT 0,
     category VARCHAR(100),
     language VARCHAR(50),
+    is_paid TINYINT(1) DEFAULT 0 COMMENT '0=مجاني, 1=مدفوع',
+    price DECIMAL(10,2) DEFAULT 0.00 COMMENT 'السعر بالجنيه المصري',
     FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE CASCADE,
     INDEX idx_unique_filename (unique_filename),
     INDEX idx_category (category),
-    INDEX idx_language (language)
+    INDEX idx_language (language),
+    INDEX idx_is_paid (is_paid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- جدول الملفات الصوتية (QR Codes)
@@ -86,6 +89,45 @@ CREATE TABLE IF NOT EXISTS sessions (
     last_activity TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     INDEX idx_last_activity (last_activity)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- جدول طلبات الشراء
+CREATE TABLE IF NOT EXISTS purchase_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    book_id INT NOT NULL,
+    payment_method ENUM('instapay', 'vodafone_cash') NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    phone_number VARCHAR(20) COMMENT 'رقم الهاتف المستخدم للدفع',
+    transaction_id VARCHAR(100) COMMENT 'رقم العملية من العميل',
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    admin_response_date TIMESTAMP NULL,
+    admin_id INT COMMENT 'معرف الأدمن الذي قبل/رفض',
+    admin_notes TEXT COMMENT 'ملاحظات الأدمن',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+    FOREIGN KEY (admin_id) REFERENCES users(id) ON DELETE SET NULL,
+    INDEX idx_status (status),
+    INDEX idx_user_book (user_id, book_id),
+    INDEX idx_request_date (request_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- جدول المشتريات المكتملة
+CREATE TABLE IF NOT EXISTS purchases (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    book_id INT NOT NULL,
+    purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    amount_paid DECIMAL(10,2) NOT NULL,
+    payment_method ENUM('instapay', 'vodafone_cash') NOT NULL,
+    purchase_request_id INT COMMENT 'معرف طلب الشراء الأصلي',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE,
+    FOREIGN KEY (purchase_request_id) REFERENCES purchase_requests(id) ON DELETE SET NULL,
+    UNIQUE KEY unique_user_book_purchase (user_id, book_id),
+    INDEX idx_user_purchases (user_id),
+    INDEX idx_purchase_date (purchase_date)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- إدخال مستخدم أدمن افتراضي (كلمة المرور: admin123)

@@ -14,12 +14,14 @@ $user = $auth->getCurrentUser();
 $stmt = $pdo->prepare("SELECT b.*, u.username,
                        (SELECT COUNT(*) FROM audio_files WHERE book_id = b.id) as audio_count,
                        (SELECT id FROM saved_books WHERE user_id = ? AND book_id = b.id) as is_saved,
+                       (SELECT id FROM purchases WHERE user_id = ? AND book_id = b.id) as is_purchased,
+                       (SELECT id FROM purchase_requests WHERE user_id = ? AND book_id = b.id AND status = 'pending') as has_pending_request,
                        rp.current_page, rp.total_pages, rp.progress_percentage
                        FROM books b
                        JOIN users u ON b.uploaded_by = u.id
                        LEFT JOIN reading_progress rp ON rp.book_id = b.id AND rp.user_id = ?
                        ORDER BY b.upload_date DESC");
-$stmt->execute([$user['id'], $user['id']]);
+$stmt->execute([$user['id'], $user['id'], $user['id'], $user['id']]);
 $allBooks = $stmt->fetchAll();
 
 // الكتب المحفوظة
@@ -147,21 +149,40 @@ $recentBooks = $recentStmt->fetchAll();
                                 <h3><?php echo htmlspecialchars($book['title']); ?></h3>
                                 <p>التصنيف: <?php echo htmlspecialchars($book['category'] ?: 'غير محدد'); ?></p>
                                 <p>اللغة: <?php echo htmlspecialchars($book['language'] ?: 'غير محدد'); ?></p>
+
+                                <?php if ($book['is_paid'] == 1): ?>
+                                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px; border-radius: 8px; margin: 10px 0; font-weight: bold; text-align: center;">
+                                        💰 <?php echo number_format($book['price'], 2); ?> جنيه
+                                    </div>
+                                <?php else: ?>
+                                    <span class="badge" style="background: #2ecc71; color: white;">مجاني</span>
+                                <?php endif; ?>
+
                                 <?php if ($book['audio_count'] > 0): ?>
                                     <span class="badge badge-audio">🎵 <?php echo $book['audio_count']; ?> ملف صوتي</span>
                                 <?php endif; ?>
+
                                 <?php if ($book['progress_percentage'] > 0): ?>
                                     <div class="progress-bar" style="margin-top: 10px;">
                                         <div class="progress-fill" style="width: <?php echo $book['progress_percentage']; ?>%"></div>
                                     </div>
                                     <p style="text-align: center; color: #667eea; font-size: 12px;"><?php echo round($book['progress_percentage'], 1); ?>%</p>
                                 <?php endif; ?>
+
                                 <div class="book-actions">
-                                    <a href="view-book.php?id=<?php echo $book['id']; ?>" class="btn btn-primary">قراءة</a>
-                                    <?php if ($book['is_saved']): ?>
-                                        <a href="unsave-book.php?id=<?php echo $book['id']; ?>" class="btn btn-success">محفوظ ✓</a>
+                                    <?php if ($book['is_paid'] == 1 && !$book['is_purchased']): ?>
+                                        <?php if ($book['has_pending_request']): ?>
+                                            <button class="btn" style="background: #ffc107; color: #856404; flex: 1;" disabled>⏳ طلب معلق</button>
+                                        <?php else: ?>
+                                            <a href="purchase-book.php?id=<?php echo $book['id']; ?>" class="btn" style="background: #f39c12; color: white; flex: 1;">🛒 شراء الكتاب</a>
+                                        <?php endif; ?>
                                     <?php else: ?>
-                                        <a href="save-book.php?id=<?php echo $book['id']; ?>" class="btn btn-outline">حفظ</a>
+                                        <a href="view-book.php?id=<?php echo $book['id']; ?>" class="btn btn-primary">قراءة</a>
+                                        <?php if ($book['is_saved']): ?>
+                                            <a href="unsave-book.php?id=<?php echo $book['id']; ?>" class="btn btn-success">محفوظ ✓</a>
+                                        <?php else: ?>
+                                            <a href="save-book.php?id=<?php echo $book['id']; ?>" class="btn btn-outline">حفظ</a>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>

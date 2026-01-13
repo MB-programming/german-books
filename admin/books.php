@@ -59,6 +59,7 @@ $books = $stmt->fetchAll();
                 <a href="books.php" class="active">إدارة الكتب</a>
                 <a href="upload-book.php">رفع كتاب جديد</a>
                 <a href="audio-manager.php">إدارة الصوتيات</a>
+                <a href="purchase-requests.php">طلبات الشراء</a>
                 <a href="users.php">إدارة المستخدمين</a>
                 <a href="settings.php">الإعدادات</a>
             </nav>
