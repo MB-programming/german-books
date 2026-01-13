@@ -1,0 +1,52 @@
+# ================================================
+# منصة الكتب الرقمية - NetLab Academy
+# .htaccess مبسط (استخدم هذا إذا كان .htaccess العادي يسبب مشاكل)
+# ================================================
+
+# تفعيل محرك إعادة الكتابة
+RewriteEngine On
+
+# ================================================
+# HTTPS Redirect (علّق هذه الأسطر إذا كان HTTP فقط)
+# ================================================
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ================================================
+# File Access Protection
+# ================================================
+
+# حماية الملفات الحساسة فقط
+<FilesMatch "(database\.sql|\.env|error\.log)$">
+    Require all denied
+</FilesMatch>
+
+# منع الوصول المباشر للملفات المرفوعة
+<FilesMatch "\.(pdf|mp3|wav|ogg|m4a)$">
+    Require all denied
+</FilesMatch>
+
+# السماح بالوصول للصور
+<FilesMatch "\.(jpg|jpeg|png|gif|svg|webp)$">
+    Require all granted
+</FilesMatch>
+
+# ================================================
+# Directory Browsing
+# ================================================
+Options -Indexes
+
+# ================================================
+# Character Encoding
+# ================================================
+AddDefaultCharset UTF-8
+
+# ================================================
+# PHP Settings (إذا كان mod_php مفعل)
+# ================================================
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 50M
+    php_value post_max_size 50M
+    php_value max_execution_time 300
+    php_value memory_limit 256M
+</IfModule>
