@@ -128,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="books.php">إدارة الكتب</a>
                 <a href="upload-book.php">رفع كتاب جديد</a>
                 <a href="audio-manager.php">إدارة الصوتيات</a>
+                <a href="purchase-requests.php">طلبات الشراء</a>
                 <a href="users.php">إدارة المستخدمين</a>
             </nav>
         </aside>

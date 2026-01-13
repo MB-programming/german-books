@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = cleanInput($_POST['description']);
     $category = cleanInput($_POST['category']);
     $language = cleanInput($_POST['language']);
+    $isPaid = isset($_POST['is_paid']) ? 1 : 0;
+    $price = $isPaid && isset($_POST['price']) ? floatval($_POST['price']) : 0.00;
 
     // التحقق من رفع ملف PDF
     if (!isset($_FILES['book_file']) || $_FILES['book_file']['error'] !== UPLOAD_ERR_OK) {
@@ -57,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // إدخال بيانات الكتاب في قاعدة البيانات
                 try {
-                    $stmt = $pdo->prepare("INSERT INTO books (title, original_filename, unique_filename, file_path, file_size, uploaded_by, description, cover_image, category, language)
-                                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $stmt = $pdo->prepare("INSERT INTO books (title, original_filename, unique_filename, file_path, file_size, uploaded_by, description, cover_image, category, language, is_paid, price)
+                                          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
                     $stmt->execute([
                         $title,
@@ -70,7 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $description,
                         $coverImage,
                         $category,
-                        $language
+                        $language,
+                        $isPaid,
+                        $price
                     ]);
 
                     $success = 'تم رفع الكتاب بنجاح!';
@@ -270,6 +274,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="books.php">إدارة الكتب</a>
                 <a href="upload-book.php" class="active">رفع كتاب جديد</a>
                 <a href="audio-manager.php">إدارة الصوتيات</a>
+                <a href="purchase-requests.php">طلبات الشراء</a>
                 <a href="users.php">إدارة المستخدمين</a>
                 <a href="settings.php">الإعدادات</a>
             </nav>
@@ -341,10 +346,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="file" name="cover_image" accept="image/*">
                     </div>
 
+                    <div class="form-group" style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" name="is_paid" id="isPaidCheckbox" style="width: auto; cursor: pointer;">
+                            <span>هذا الكتاب مدفوع (يتطلب شراء)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group" id="priceField" style="display: none;">
+                        <label>السعر (بالجنيه المصري) *</label>
+                        <input type="number" name="price" min="0" step="0.01" placeholder="مثال: 50.00">
+                    </div>
+
                     <button type="submit">رفع الكتاب</button>
                 </form>
             </div>
         </main>
     </div>
+
+    <script>
+        const isPaidCheckbox = document.getElementById('isPaidCheckbox');
+        const priceField = document.getElementById('priceField');
+        const priceInput = priceField.querySelector('input[name="price"]');
+
+        isPaidCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                priceField.style.display = 'block';
+                priceInput.required = true;
+            } else {
+                priceField.style.display = 'none';
+                priceInput.required = false;
+                priceInput.value = '';
+            }
+        });
+    </script>
 </body>
 </html>
