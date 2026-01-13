@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /uploads/
+Disallow: /install.php
+Disallow: /config.php
+Disallow: /auth.php
+Disallow: /seo-functions.php
+Disallow: /error.log
+
+# Allow images and CSS
+Allow: /uploads/covers/
+Allow: /assets/
+
+# Sitemap
+Sitemap: https://netlabacademy.com/sitemap.php
+
+# Crawl delay
+Crawl-delay: 10
