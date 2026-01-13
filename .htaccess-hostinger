@@ -1,0 +1,27 @@
+# ================================================
+# .htaccess Optimized for Hostinger
+# ================================================
+
+# PHP Settings (Hostinger Compatible)
+<IfModule mod_php7.c>
+php_value upload_max_filesize 50M
+php_value post_max_size 50M
+php_value max_execution_time 300
+php_value memory_limit 256M
+</IfModule>
+
+# Disable Directory Listing
+Options -Indexes
+
+# Default Files
+DirectoryIndex index.php index.html
+
+# Character Encoding
+AddDefaultCharset UTF-8
+
+# ================================================
+# OPTIONAL: Uncomment lines below for HTTPS redirect
+# ================================================
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
