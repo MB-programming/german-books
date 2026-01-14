@@ -1,0 +1,450 @@
+/*
+Theme Name: Digital Books Theme
+Theme URI: https://netlabacademy.com
+Description: قالب متكامل لمنصة الكتب الرقمية مع دعم WooCommerce - A complete theme for digital books platform with WooCommerce support
+Version: 1.0.0
+Author: NetLab Academy
+Author URI: https://netlabacademy.com
+Text Domain: digital-books-theme
+Requires at least: 5.8
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GPL-2.0+
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+Tags: education, books, e-commerce, woocommerce, rtl-language-support, custom-menu, featured-images, translation-ready
+
+Digital Books Theme - منصة الكتب الرقمية
+قالب ووردبريس متكامل لإدارة وبيع الكتب الرقمية مع:
+- دعم كامل لـ WooCommerce
+- قارئ PDF احترافي
+- نظام صوتي مع QR Codes
+- تصميم عصري متجاوب
+- دعم RTL للعربية
+*/
+
+/* ========================================
+   Table of Contents
+   ========================================
+   1. Reset & Base Styles
+   2. Typography
+   3. Layout
+   4. Header
+   5. Navigation
+   6. Books Grid
+   7. Book Cards
+   8. PDF Viewer
+   9. WooCommerce Integration
+   10. Footer
+   11. Responsive
+   ======================================== */
+
+/* ========================================
+   1. Reset & Base Styles
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #38ef7d;
+    --text-color: #333;
+    --text-light: #666;
+    --bg-color: #f9f9f9;
+    --white: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Cairo', 'Tajawal';
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background: var(--bg-color);
+    direction: rtl;
+    text-align: right;
+}
+
+/* ========================================
+   2. Typography
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+/* ========================================
+   3. Layout
+   ======================================== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container-fluid {
+    max-width: 100%;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: var(--gradient);
+    margin: 20px auto 0;
+    border-radius: 2px;
+}
+
+/* ========================================
+   4. Header
+   ======================================== */
+
+.site-header {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.site-logo {
+    font-size: 24px;
+    font-weight: bold;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========================================
+   5. Navigation
+   ======================================== */
+
+.main-navigation ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+}
+
+.main-navigation a {
+    color: var(--text-color);
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.main-navigation a:hover,
+.main-navigation .current-menu-item a {
+    background: var(--gradient);
+    color: var(--white);
+}
+
+/* ========================================
+   6. Books Grid
+   ======================================== */
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 30px 0;
+}
+
+/* ========================================
+   7. Book Cards
+   ======================================== */
+
+.book-card {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.book-card-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.book-card:hover .book-card-image {
+    transform: scale(1.05);
+}
+
+.book-card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.book-card-description {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.book-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.book-card-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.book-card-category {
+    background: var(--gradient);
+    color: var(--white);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.book-card-actions {
+    padding: 0 20px 20px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--gradient);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* ========================================
+   8. PDF Viewer
+   ======================================== */
+
+.pdf-viewer-container {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin: 30px 0;
+}
+
+/* PDF Viewer styles are loaded from separate CSS file */
+
+/* ========================================
+   9. WooCommerce Integration
+   ======================================== */
+
+.woocommerce-page .site-main {
+    padding: 40px 0;
+}
+
+.woocommerce ul.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.woocommerce ul.products li.product {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.woocommerce ul.products li.product:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+.woocommerce ul.products li.product img {
+    border-radius: 15px 15px 0 0;
+}
+
+.woocommerce ul.products li.product .price {
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.woocommerce .button,
+.woocommerce button.button {
+    background: var(--gradient);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 12px 30px;
+    font-weight: bold;
+    border: none;
+}
+
+.woocommerce .button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* ========================================
+   10. Footer
+   ======================================== */
+
+.site-footer {
+    background: var(--gradient);
+    color: var(--white);
+    padding: 40px 0 20px;
+    margin-top: 60px;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-content p {
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+/* ========================================
+   11. Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+    .header-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .main-navigation ul {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .books-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+
+    .section {
+        padding: 40px 0;
+    }
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 10px; }
+.mt-2 { margin-top: 20px; }
+.mt-3 { margin-top: 30px; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 10px; }
+.mb-2 { margin-bottom: 20px; }
+.mb-3 { margin-bottom: 30px; }
+
+.pt-0 { padding-top: 0; }
+.pt-1 { padding-top: 10px; }
+.pt-2 { padding-top: 20px; }
+.pt-3 { padding-top: 30px; }
+
+.pb-0 { padding-bottom: 0; }
+.pb-1 { padding-bottom: 10px; }
+.pb-2 { padding-bottom: 20px; }
+.pb-3 { padding-bottom: 30px; }
