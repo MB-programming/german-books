@@ -1,0 +1,433 @@
+/**
+ * Digital Books Platform - Admin Styles
+ * Version: 1.0.0
+ */
+
+/* General Admin Styles */
+.dbp-admin-container {
+    max-width: 1400px;
+    margin: 20px auto;
+}
+
+.dbp-admin-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dbp-admin-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+/* Book Cards Grid */
+.dbp-admin-books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.dbp-admin-book-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.dbp-admin-book-card:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.dbp-admin-book-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.dbp-admin-book-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.dbp-admin-book-card .book-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.dbp-admin-book-card .price {
+    font-weight: bold;
+    color: #667eea;
+}
+
+.dbp-admin-book-card .free {
+    color: #38ef7d;
+    font-weight: bold;
+}
+
+/* Forms */
+.dbp-form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dbp-form-row {
+    margin-bottom: 25px;
+}
+
+.dbp-form-row label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.dbp-form-row input[type="text"],
+.dbp-form-row input[type="number"],
+.dbp-form-row input[type="email"],
+.dbp-form-row textarea,
+.dbp-form-row select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.dbp-form-row input:focus,
+.dbp-form-row textarea:focus,
+.dbp-form-row select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.dbp-form-row textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.dbp-file-upload {
+    border: 2px dashed #e0e0e0;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.dbp-file-upload:hover {
+    border-color: #667eea;
+    background: #f9f9ff;
+}
+
+.dbp-file-upload input[type="file"] {
+    display: none;
+}
+
+.dbp-file-upload-label {
+    cursor: pointer;
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* Buttons */
+.dbp-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.dbp-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.dbp-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.dbp-btn-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(56, 239, 125, 0.4);
+}
+
+.dbp-btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(56, 239, 125, 0.6);
+}
+
+.dbp-btn-danger {
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(235, 51, 73, 0.4);
+}
+
+.dbp-btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(235, 51, 73, 0.6);
+}
+
+/* Tables */
+.dbp-table-container {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dbp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dbp-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.dbp-table th {
+    padding: 15px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.dbp-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: right;
+}
+
+.dbp-table tbody tr:hover {
+    background: #f9f9ff;
+}
+
+.dbp-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status Badges */
+.dbp-status-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.dbp-status-pending {
+    background: #fff4e6;
+    color: #ff9800;
+}
+
+.dbp-status-approved {
+    background: #e8f5e9;
+    color: #4caf50;
+}
+
+.dbp-status-rejected {
+    background: #ffebee;
+    color: #f44336;
+}
+
+/* Audio Management */
+.dbp-audio-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.dbp-audio-item {
+    background: #f9f9ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dbp-audio-info {
+    flex: 1;
+}
+
+.dbp-audio-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Statistics Dashboard */
+.dbp-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.dbp-stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.dbp-stat-card h3 {
+    margin: 0 0 10px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.dbp-stat-card .stat-value {
+    font-size: 36px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.dbp-stat-card .stat-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+/* Notices */
+.dbp-notice {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dbp-notice-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-right: 4px solid #4caf50;
+}
+
+.dbp-notice-error {
+    background: #ffebee;
+    color: #c62828;
+    border-right: 4px solid #f44336;
+}
+
+.dbp-notice-warning {
+    background: #fff4e6;
+    color: #e65100;
+    border-right: 4px solid #ff9800;
+}
+
+.dbp-notice-info {
+    background: #e3f2fd;
+    color: #1565c0;
+    border-right: 4px solid #2196f3;
+}
+
+/* Loading Spinner */
+.dbp-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: dbp-spin 0.6s linear infinite;
+}
+
+@keyframes dbp-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dbp-admin-books-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dbp-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dbp-table {
+        font-size: 14px;
+    }
+
+    .dbp-table th,
+    .dbp-table td {
+        padding: 10px;
+    }
+
+    .dbp-audio-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dbp-audio-actions {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .dbp-table th,
+[dir="rtl"] .dbp-table td {
+    text-align: right;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .dbp-admin-book-card {
+        background: #1e1e1e;
+        border-color: #333;
+    }
+
+    .dbp-admin-book-card h3 {
+        color: #fff;
+    }
+
+    .dbp-form-container {
+        background: #1e1e1e;
+    }
+
+    .dbp-form-row input,
+    .dbp-form-row textarea,
+    .dbp-form-row select {
+        background: #2a2a2a;
+        border-color: #444;
+        color: #fff;
+    }
+
+    .dbp-table-container {
+        background: #1e1e1e;
+    }
+
+    .dbp-table td {
+        border-color: #333;
+    }
+
+    .dbp-stat-card {
+        background: #1e1e1e;
+    }
+}
