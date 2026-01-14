@@ -1,0 +1,497 @@
+/**
+ * Digital Books Platform - Public Styles
+ * Version: 1.0.0
+ */
+
+/* Books Grid Layout */
+.dbp-books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 30px 0;
+    padding: 0;
+}
+
+/* Book Card */
+.dbp-book-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.dbp-book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.dbp-book-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.dbp-book-card:hover img {
+    transform: scale(1.05);
+}
+
+.dbp-book-card h3 {
+    margin: 15px 20px 10px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.dbp-book-card p {
+    margin: 0 20px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Book Meta */
+.dbp-book-meta {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto;
+}
+
+.dbp-book-meta .price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.dbp-book-meta .free {
+    font-size: 18px;
+    font-weight: bold;
+    color: #38ef7d;
+}
+
+.dbp-book-meta .category {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Book Card Button */
+.dbp-book-card .button {
+    display: block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+    padding: 12px 20px;
+    margin: 0 20px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.dbp-book-card .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+/* My Books Section */
+.dbp-my-books {
+    padding: 30px 0;
+}
+
+.dbp-my-books h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+    position: relative;
+}
+
+.dbp-my-books h2::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.dbp-my-books p {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+/* Purchase Modal */
+.dbp-purchase-modal {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.dbp-purchase-modal h3 {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.dbp-payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.dbp-payment-option {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dbp-payment-option:hover {
+    border-color: #667eea;
+    background: #f9f9ff;
+}
+
+.dbp-payment-option.selected {
+    border-color: #667eea;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+}
+
+.dbp-payment-option input[type="radio"] {
+    width: 20px;
+    height: 20px;
+}
+
+.dbp-payment-option label {
+    flex: 1;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.dbp-payment-info {
+    background: #f9f9ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.dbp-payment-info p {
+    margin: 10px 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+.dbp-payment-info strong {
+    color: #667eea;
+}
+
+/* Filters Section */
+.dbp-filters {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dbp-filters-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.dbp-filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.dbp-filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.dbp-filter-group select,
+.dbp-filter-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.dbp-filter-group select:focus,
+.dbp-filter-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Pagination */
+.dbp-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 40px 0;
+}
+
+.dbp-pagination a,
+.dbp-pagination span {
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.dbp-pagination a:hover {
+    border-color: #667eea;
+    background: #f9f9ff;
+    color: #667eea;
+}
+
+.dbp-pagination .current {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+}
+
+/* Search Box */
+.dbp-search-box {
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.dbp-search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.dbp-search-form input {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.dbp-search-form input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.dbp-search-form button {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dbp-search-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Empty State */
+.dbp-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.dbp-empty-state-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.dbp-empty-state h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.dbp-empty-state p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Loading State */
+.dbp-loading-container {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.dbp-spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: dbp-spin 0.8s linear infinite;
+}
+
+@keyframes dbp-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Progress Bar */
+.dbp-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.dbp-progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.dbp-progress-text {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* Audio Player Enhancement */
+audio {
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dbp-books-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .dbp-book-card img {
+        height: 300px;
+    }
+
+    .dbp-filters-row {
+        flex-direction: column;
+    }
+
+    .dbp-filter-group {
+        min-width: 100%;
+    }
+
+    .dbp-search-form {
+        flex-direction: column;
+    }
+
+    .dbp-search-form button {
+        width: 100%;
+    }
+
+    .dbp-my-books h2 {
+        font-size: 24px;
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .dbp-book-card h3,
+[dir="rtl"] .dbp-book-card p {
+    text-align: right;
+}
+
+[dir="rtl"] .dbp-payment-option {
+    flex-direction: row-reverse;
+}
+
+/* Print Styles */
+@media print {
+    .dbp-book-card .button,
+    .dbp-filters,
+    .dbp-pagination {
+        display: none;
+    }
+
+    .dbp-book-card {
+        break-inside: avoid;
+    }
+}
+
+/* Accessibility */
+.dbp-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus Styles */
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .dbp-book-card {
+        border: 2px solid currentColor;
+    }
+
+    .dbp-book-card .button {
+        background: #000;
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
